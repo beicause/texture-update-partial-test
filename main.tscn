@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://5eujdn2cw6iy"]
+
+[ext_resource type="Script" uid="uid://ddlammc68px8f" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://bscuf5v4ph4qw" path="res://icon.svg" id="2_0xm2m"]
+
+[sub_resource type="Shader" id="Shader_ig7tw"]
+code = "shader_type canvas_item;
+
+uniform sampler2D tex:filter_linear_mipmap;
+
+void fragment() {
+	if(UV.x<0.5&&UV.y<0.5){
+		COLOR = textureLod(tex,vec2(UV*2.0),0);
+	} else if(UV.x>=0.5&&UV.y<0.5){
+		vec2 uv_ofs = UV;
+		uv_ofs.x-=0.5;
+		COLOR = textureLod(tex,vec2(uv_ofs*2.0),1);
+	}else if (UV.x<0.5&&UV.y>=0.5){
+		vec2 uv_ofs = UV;
+		uv_ofs.y-=0.5;
+		COLOR = texture(tex,vec2(uv_ofs*2.0));
+	} else if (UV.x>=0.5&&UV.y>=0.5){
+		vec2 uv_ofs = UV;
+		uv_ofs-=0.5;
+		COLOR = texture(tex,vec2(uv_ofs*2.0),2);
+	}
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0xm2m"]
+shader = SubResource("Shader_ig7tw")
+shader_parameter/tex = ExtResource("2_0xm2m")
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ig7tw")
+
+[node name="Sprite2D" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_0xm2m")
+offset_left = 102.0
+offset_top = 70.0
+offset_right = 358.0
+offset_bottom = 326.0
