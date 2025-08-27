@@ -30,8 +30,8 @@ func update_2d_compressed():
 		var n := ClassDB.class_get_enum_constants("Image","Format")
 		push_error("compressed image format doesn't match, ",n[img.get_format()]," vs ",n[icon.get_image().get_format()])
 
-	RenderingServer.texture_update_partial(icon.get_rid(), img, Rect2i(Vector2i.ZERO,img.get_size()), Vector2i(0, 0), 0, 0, 0)
-	RenderingServer.texture_update_partial(icon.get_rid(), img, Rect2i(Vector2i.ZERO,img.get_size()), Vector2i(16, 16), 0, 1, 0)
+	RenderingServer.texture_update_partial(icon.get_rid(), img, Rect2i(Vector2i.ZERO,img.get_size()), Vector2i(0, 0), 0, 0)
+	RenderingServer.texture_update_partial(icon.get_rid(), img, Rect2i(Vector2i.ZERO,img.get_size()), Vector2i(16, 0), 0, 1)
 
 func update_layered():
 	var icon: TextureLayered = load("res://icon_layered.svg")
