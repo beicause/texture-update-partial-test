@@ -1,0 +1,31 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ddnrcciktaoxq"]
+
+[ext_resource type="Texture2D" uid="uid://bscuf5v4ph4qw" path="res://icon.svg" id="1_ynnib"]
+
+[sub_resource type="Shader" id="Shader_ig7tw"]
+code = "shader_type canvas_item;
+
+uniform sampler2D tex:filter_linear_mipmap;
+
+void fragment() {
+	if(UV.x<0.5&&UV.y<0.5){
+		COLOR = textureLod(tex,vec2(UV*2.0),0);
+	} else if(UV.x>=0.5&&UV.y<0.5){
+		vec2 uv_ofs = UV;
+		uv_ofs.x-=0.5;
+		COLOR = textureLod(tex,vec2(uv_ofs*2.0),1);
+	}else if (UV.x<0.5&&UV.y>=0.5){
+		vec2 uv_ofs = UV;
+		uv_ofs.y-=0.5;
+		COLOR = texture(tex,vec2(uv_ofs*2.0));
+	} else if (UV.x>=0.5&&UV.y>=0.5){
+		vec2 uv_ofs = UV;
+		uv_ofs-=0.5;
+		COLOR = texture(tex,vec2(uv_ofs*2.0),2);
+	}
+}
+"
+
+[resource]
+shader = SubResource("Shader_ig7tw")
+shader_parameter/tex = ExtResource("1_ynnib")

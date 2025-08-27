@@ -1,0 +1,32 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dfgq0sn7xf8eh"]
+
+[ext_resource type="CompressedTexture2DArray" uid="uid://etr3rgvey8tq" path="res://icon_layered.svg" id="1_cpngp"]
+
+[sub_resource type="Shader" id="Shader_jisge"]
+code = "shader_type canvas_item;
+
+uniform sampler2DArray tex:filter_linear_mipmap;
+
+void fragment() {
+	if(UV.x<0.5&&UV.y<0.5){
+		COLOR = textureLod(tex,vec3(UV*2.0,0),0);
+	} else if(UV.x>=0.5&&UV.y<0.5){
+		vec2 uv_ofs = UV;
+		uv_ofs.x-=0.5;
+		COLOR = textureLod(tex,vec3(uv_ofs*2.0,1),1);
+	}else if (UV.x<0.5&&UV.y>=0.5){
+		vec2 uv_ofs = UV;
+		uv_ofs.y-=0.5;
+		COLOR = texture(tex,vec3(uv_ofs*2.0,2));
+	} else if (UV.x>=0.5&&UV.y>=0.5){
+		vec2 uv_ofs = UV;
+		uv_ofs-=0.5;
+		COLOR = texture(tex,vec3(uv_ofs*2.0,3),2);
+	}
+}
+
+"
+
+[resource]
+shader = SubResource("Shader_jisge")
+shader_parameter/tex = ExtResource("1_cpngp")

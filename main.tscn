@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://5eujdn2cw6iy"]
+[gd_scene load_steps=8 format=3 uid="uid://5eujdn2cw6iy"]
 
 [ext_resource type="Script" uid="uid://ddlammc68px8f" path="res://main.gd" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://bscuf5v4ph4qw" path="res://icon.svg" id="2_0xm2m"]
+[ext_resource type="Material" uid="uid://ddnrcciktaoxq" path="res://rect.tres" id="2_0xm2m"]
+[ext_resource type="Material" uid="uid://dfgq0sn7xf8eh" path="res://rect_layered.tres" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://cph18k8t0je65" path="res://icon_compressed.svg" id="3_lquwl"]
+[ext_resource type="Material" uid="uid://bkk6xio5njn5m" path="res://rect_3d.tres" id="4_1bvp3"]
 
 [sub_resource type="Shader" id="Shader_ig7tw"]
 code = "shader_type canvas_item;
@@ -25,23 +28,39 @@ void fragment() {
 		COLOR = texture(tex,vec2(uv_ofs*2.0),2);
 	}
 }
-
-//void light() {
-//	// Called for every pixel for every light affecting the CanvasItem.
-//	// Uncomment to replace the default light processing function with this one.
-//}
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0xm2m"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7mycd"]
 shader = SubResource("Shader_ig7tw")
-shader_parameter/tex = ExtResource("2_0xm2m")
+shader_parameter/tex = ExtResource("3_lquwl")
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_ig7tw")
 
 [node name="Sprite2D" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_0xm2m")
+material = ExtResource("2_0xm2m")
 offset_left = 102.0
 offset_top = 70.0
 offset_right = 358.0
 offset_bottom = 326.0
+
+[node name="Sprite2D4" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_7mycd")
+offset_left = 501.0
+offset_top = 76.0
+offset_right = 757.0
+offset_bottom = 332.0
+
+[node name="Sprite2D2" type="ColorRect" parent="."]
+material = ExtResource("3_h2yge")
+offset_left = 115.0
+offset_top = 352.0
+offset_right = 371.0
+offset_bottom = 608.0
+
+[node name="Sprite2D3" type="ColorRect" parent="."]
+material = ExtResource("4_1bvp3")
+offset_left = 485.0
+offset_top = 376.0
+offset_right = 741.0
+offset_bottom = 632.0
