@@ -22,10 +22,10 @@ func update_2d():
 func update_2d_compressed():
 	var icon: Texture2D = load("res://icon_compressed.svg")
 	var img := Image.create_empty(12, 64, false, Image.FORMAT_RGBA8)
-	img.fill(Color(0, 0.5, 0, 0.99))
-	img.compress(Image.COMPRESS_S3TC, Image.COMPRESS_SOURCE_SRGB)
+	img.fill(Color(0, 0.5, 0, 1))
+	img.compress(Image.COMPRESS_BPTC, Image.COMPRESS_SOURCE_SRGB)
 
-	if img.get_format() != Image.FORMAT_DXT5 || icon.get_image().get_format() != Image.FORMAT_DXT5:
+	if img.get_format() != icon.get_image().get_format():
 		var n := ClassDB.class_get_enum_constants("Image", "Format")
 		push_error("compressed image format doesn't match, ", n[img.get_format()], " vs ", n[icon.get_image().get_format()])
 
