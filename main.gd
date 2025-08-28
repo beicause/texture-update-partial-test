@@ -17,7 +17,6 @@ func update_2d():
 	var icon_img := icon.get_image();
 	if Engine.is_editor_hint():
 		icon_img = icon_img.duplicate()
-	icon_img.clear_mipmaps(); # Mipmaps must be 1.
 	RenderingServer.texture_update_partial(icon.get_rid(), icon_img, Rect2i(Vector2i(0, 0), Vector2i(32, 32)), Vector2i(16, 16), 0, 1, 0)
 
 func update_2d_compressed():
@@ -44,7 +43,6 @@ func update_layered():
 	var icon_img := icon.get_layer_data(0);
 	if Engine.is_editor_hint():
 		icon_img = icon_img.duplicate()
-	icon_img.clear_mipmaps(); # Mipmaps must be 1.
 	RenderingServer.texture_update_partial(icon.get_rid(), icon_img, Rect2i(Vector2i(0, 0), Vector2i(16, 16)), Vector2i(16, 16), 0, 1, 3)
 
 func update_3d():
@@ -63,7 +61,6 @@ func update_3d():
 	var icon_img: Image = load("res://icon.svg").get_image();
 	if Engine.is_editor_hint():
 		icon_img = icon_img.duplicate()
-	icon_img.clear_mipmaps(); # Mipmaps must be 1.
 	RenderingServer.texture_update_partial(icon.get_rid(), icon_img, Rect2i(Vector2i(0, 0), Vector2i(16, 16)), Vector2i(16, 16), 3)
 
 	if RenderingServer.get_current_rendering_method() != "gl_compatibility":
