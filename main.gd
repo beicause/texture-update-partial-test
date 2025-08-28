@@ -65,3 +65,9 @@ func update_3d():
 		icon_img = icon_img.duplicate()
 	icon_img.clear_mipmaps(); # Mipmaps must be 1.
 	RenderingServer.texture_update_partial(icon.get_rid(), icon_img, Rect2i(Vector2i(0, 0), Vector2i(16, 16)), Vector2i(16, 16), 3)
+
+	if RenderingServer.get_current_rendering_method() != "gl_compatibility":
+		var rd_tex := RenderingServer.texture_get_rd_texture(icon.get_rid())
+		var rd = RenderingServer.get_rendering_device()
+		# Use RD to update 4 depth levels simultaneously.
+		rd.texture_update_partial(rd_tex, 0, 0, Vector3i.ZERO, Vector3i(4, 12, 4), img.get_data());
